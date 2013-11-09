@@ -74,7 +74,7 @@ getRandomArbitary = (min, max) -> Math.random() * (max - min) + min
     $scope.streamOneLength = 0
     $scope.tweets = []
     $scope.vips = []
-    $scope.message = 'boobs'
+    $scope.message = 'jquery'
 
     $scope.exampleData = [
       {
