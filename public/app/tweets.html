@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title></title>
+    <!--<script src="https://traceur-compiler.googlecode.com/git/bin/traceur.js"-->
+            <!--type="text/javascript"></script>-->
+    <!--<script src="https://traceur-compiler.googlecode.com/git/src/bootstrap.js"-->
+            <!--type="text/javascript"></script>-->
+    <!--<script>-->
+        <!--traceur.options.experimental = true;-->
+    <!--</script>-->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+    <script src="../bower_components/jquery/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../bower_components/angular-bindonce/bindonce.js"></script>
+    <script src="linq.js"></script>
+    <script src="lib/socket.io.js"></script>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+    <script src="../bower_components/angular-socket-io/socket.js"></script>
+    <script src="../bower_components/angular-google-maps/src/angular-google-maps.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script src="../bower_components/d3/d3.js"></script>
+    <script src="../bower_components/nvd3/nv.d3.js"></script>
+    <link rel="stylesheet" href="../bower_components/nvd3/nv.d3.css"/>
+    <script src="../bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+    <script src="tools.js"></script>
+
+    <script src="tweet.js"></script>
+    <!--<script type="text/traceur" src="app.js"></script>-->
+    <style type="text/css">
+        .all-tweets li {
+            /*display: none;*/
+            list-style: none;
+        }
+        .list-group-item-wrapper {
+            margin-left: 15px;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+<div class="container" ng-controller="TweetCtrl">
+    <div class="page-header">
+        <h1>Application for contest in twitter <small>Based on twitter bootstrap and AngularJS</small></h1>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="input-group">
+                <span class="input-group-addon">#</span>
+                <input type="text" class="form-control" ng-model="message" placeholder="hashcode">
+            </div>
+            <br/>
+            <ul tab class="nav nav-tabs" id="tweet-tabs">
+                <li class="active"><a href="#stream-1" data-toggle="tab">Stream-1({{ streamOneLength }})</a></li>
+                <li><a href="#stream-2" data-toggle="tab">Stream-2({{ streamTwoLength }})</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="stream-1">
+                    <ul loader class="list-group all-tweets">
+                        <li ng-repeat="tweet in tweets track by $id(tweet)" class="list-group-item clearfix" ng-class="{'tweet-animation': !tweet.static}">
+                            <a href="#" class="clearfix">
+                                <a class="pull-left" href="#">
+                                    <img ng-src="{{ tweet.image }}" alt=""/>
+                                </a>
+                                <span class="badge">1</span>
+                                <div class="pull-left list-group-item-wrapper">
+                                    <h4 class="list-group-item-heading">{{ tweet.screen_name }}</h4>
+                                    <p class="list-group-item-text" >{{ tweet.text }}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="tab-pane" id="stream-2">
+                    <ul class="list-group">
+                        <li ng-repeat="vip in groupVips track by $id(vip)" class="list-group-item clearfix">
+                            <a href="#" class="clearfix">
+                                <!--<span class="glyphicon glyphicon-star"></span>-->
+                                <a class="pull-left" href="#">
+                                    <img ng-src="{{ vip.vip.image }}" alt=""/>
+                                </a>
+                                <span class="badge">{{ vip.count }}</span>
+                                <div class="pull-left list-group-item-wrapper">
+                                    <h4 class="list-group-item-heading">{{ vip.vip.screen_name }}</h4>
+                                    <p class="list-group-item-text">{{ vip.vip.text }}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div google-map center="center"
+                 mark-click="false" fit="true"
+                 draggable="false" zoom="zoom"
+                 markers="markers"
+                 mark-click="true" style="height: 400px"></div>
+            <nvd3-line-chart data="exampleData" id="exampleId" height="400" showXAxis="true" showYAxis="true">
+                <svg></svg>
+            </nvd3-line-chart>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='http://codeorigin.jquery.com/jquery-2.0.3.js')
+    script(src='/socket.io/socket.io.js')
+    script(type='text/javascript').
+        var socket = io.connect('http://localhost');
+        (function($) {
+            $(function() {
+                socket.on('tweet', function(data) {
+                    console.log(data);
+                    $('#test').append(data.tweet.text + '<br />');
+                });
+            });
+        })(jQuery);
+  body
+    block content

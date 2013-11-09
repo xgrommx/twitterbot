@@ -1,0 +1,14 @@
+(function(ng) {
+    var app = ng.module('app', ['btford.socket-io']);
+    app.controller('TweetCtrl', ['$scope', 'socket', ($scope, socket) => {
+        $scope.message = 'Test';
+    $scope.tweets = [];
+    $scope.$watch('message', function(oldValue, newValue) {
+        $scope.tweets = [];
+        socket.emit('get:tweet', {message: $scope.message});
+    });
+    socket.on('send:tweet', function(data) {
+        $scope.tweets.push(data.tweet.text);
+    });
+}]);
+})(angular);
