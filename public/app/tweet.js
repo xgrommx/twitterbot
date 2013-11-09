@@ -82,7 +82,7 @@ getRandomArbitary = function(min, max) {
       $scope.streamOneLength = 0;
       $scope.tweets = [];
       $scope.vips = [];
-      $scope.message = 'boobs';
+      $scope.message = 'jquery';
       $scope.exampleData = [
         {
           "key": "Series 1",
