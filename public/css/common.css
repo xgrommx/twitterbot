@@ -1,0 +1,167 @@
+/*.tweet-animation {*/
+    /*-webkit-animation-fill-mode: both;*/
+    /*-moz-animation-fill-mode: both;*/
+    /*-ms-animation-fill-mode: both;*/
+    /*-o-animation-fill-mode: both;*/
+    /*animation-fill-mode: both;*/
+    /*-webkit-animation-duration: 0.5s;*/
+    /*-moz-animation-duration: 0.5s;*/
+    /*-ms-animation-duration: 0.5s;*/
+    /*-o-animation-duration: 0.5s;*/
+    /*animation-duration: 0.5s;*/
+/*}*/
+
+/*@-webkit-keyframes fadeOutDown {*/
+    /*0% {*/
+        /*opacity: 1;*/
+        /*-webkit-transform: translateY(0);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 0;*/
+        /*-webkit-transform: translateY(20px);*/
+    /*}*/
+/*}*/
+
+/*@-moz-keyframes fadeOutDown {*/
+    /*0% {*/
+        /*opacity: 1;*/
+        /*-moz-transform: translateY(0);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 0;*/
+        /*-moz-transform: translateY(20px);*/
+    /*}*/
+/*}*/
+
+/*@-o-keyframes fadeOutDown {*/
+    /*0% {*/
+        /*opacity: 1;*/
+        /*-o-transform: translateY(0);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 0;*/
+        /*-o-transform: translateY(20px);*/
+    /*}*/
+/*}*/
+
+/*@keyframes fadeOutDown {*/
+    /*0% {*/
+        /*opacity: 1;*/
+        /*transform: translateY(0);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 0;*/
+        /*transform: translateY(20px);*/
+    /*}*/
+/*}*/
+
+/*@-webkit-keyframes fadeInDown {*/
+    /*0% {*/
+        /*opacity: 0;*/
+        /*-webkit-transform: translateY(-20px);*/
+    /*}*/
+    /*100% {*/
+        /*opacity: 1;*/
+        /*-webkit-transform: translateY(0);*/
+    /*}*/
+/*}*/
+
+/*@-moz-keyframes fadeInDown {*/
+    /*0% {*/
+        /*opacity: 0;*/
+        /*-moz-transform: translateY(-20px);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 1;*/
+        /*-moz-transform: translateY(0);*/
+    /*}*/
+/*}*/
+
+/*@-o-keyframes fadeInDown {*/
+    /*0% {*/
+        /*opacity: 0;*/
+        /*-o-transform: translateY(-20px);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 1;*/
+        /*-o-transform: translateY(0);*/
+    /*}*/
+/*}*/
+
+/*@keyframes fadeInDown {*/
+    /*0% {*/
+        /*opacity: 0;*/
+        /*transform: translateY(-20px);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 1;*/
+        /*transform: translateY(0);*/
+    /*}*/
+/*}*/
+
+/*.tweet-animation.ng-enter {*/
+    /*-webkit-animation-name: fadeInDown;*/
+    /*-moz-animation-name: fadeInDown;*/
+    /*-o-animation-name: fadeInDown;*/
+    /*animation-name: fadeInDown;*/
+/*}*/
+
+/*.tweet-animation.ng-leave {*/
+    /*-webkit-animation-name: fadeOutDown;*/
+    /*-moz-animation-name: fadeOutDown;*/
+    /*-o-animation-name: fadeOutDown;*/
+    /*animation-name: fadeOutDown;*/
+/*}*/
+
+/*body { padding-top: 70px; }*/
+
+.btn-login {
+    display: block;
+    width: 330px;
+    height: 45px;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -165px;
+    margin-top: -22px;
+}
+
+.all-tweets li {
+    /*display: none;*/
+    list-style: none;
+}
+
+.container .list-group-item:first-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top: 0;
+}
+
+.list-group-item-wrapper {
+    margin-left: 15px;
+    width: 80%;
+}
+
+.form-search {
+    height: 35px;
+}
+
+.label-block {
+    display: block;
+}
+
+#tweet-chart,
+#tweet-map {
+    height: 400px;
+}
+
+.user-name {
+    margin-left: 10px;
+}

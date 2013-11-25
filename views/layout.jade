@@ -1,0 +1,25 @@
+!!!
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet' href='/bower_components/Ladda/dist/ladda.min.css')
+        link(rel='stylesheet' href='/bower_components/animo.js/animate+animo.css')
+        link(rel='stylesheet' href='/css/common.css')
+
+        script(src='/bower_components/jquery/jquery.js')
+        script(src='/bower_components/angular/angular.js')
+        //script(type='text/javascript').
+        //    window.user = !{user};
+
+        title Twitter contest aplication
+    body
+        div.container
+            div(role="navigation").navbar.navbar-default
+                a(href='#').navbar-brand <span class="glyphicon glyphicon-heart"></span> Twitter Bot
+                p.navbar-text.navbar-right Signed in as
+                    if user
+                        a(href="#").navbar-link.user-name #{user.name}
+                    else
+                        span Anonimous
+            block content

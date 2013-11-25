@@ -1,0 +1,11 @@
+ul.list-group
+    li(ng-repeat="spamUser in spamUsers | limitTo:10").list-group-item.clearfix
+        a(href="#").pull-left
+            img(ng-src="{{ spamUser.item.image }}")
+        span.badge {{ spamUser.count_of_tweets }}
+        .pull-left.list-group-item-wrapper
+            h4.list-group-item-heading {{ spamUser.item.screen_name }}
+            p.list-group-item-text
+                div {{ spamUser.item.text }}
+                div Posted {{ spamUser.item.created_at | timeAgoFormat }}
+                div Followers {{ spamUser.item.followers_count }}

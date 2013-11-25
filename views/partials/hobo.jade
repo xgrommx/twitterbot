@@ -1,0 +1,10 @@
+ul.list-group
+    li(ng-repeat="hoboUser in hoboUsers | limitTo:10").list-group-item.clearfix
+        a(href="#").pull-left
+            img(ng-src="{{ hoboUser.image }}", alt="")
+        .pull-left.list-group-item-wrapper
+            h4.list-group-item-heading {{ hoboUser.screen_name }}
+            p.list-group-item-text
+                div {{ hoboUser.text }}
+                div Posted {{ hoboUser.created_at | timeAgoFormat }}
+                div Followers {{ hoboUser.followers_count }}

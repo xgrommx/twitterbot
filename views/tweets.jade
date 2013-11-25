@@ -1,0 +1,103 @@
+extends layout
+
+block content
+    div(ng-app='app').app-wrapper
+        div.page-header
+            h1 Application for contest in twitter <small>Based on twitter bootstrap and AngularJS</small>
+        div.row
+            div.col-md-5
+                form(role='form').form-inline
+                    div.input-group
+                        span.input-group-addon #
+                        input(type='text', ng-model='hashtag', placeholder='hashtag').form-control.form-search
+                        span.input-group-btn
+                            button(loader,
+                            ng-click='doSearch(hashtag)',
+                            data-color='blue',
+                            data-style='expand-right',
+                            data-size='xs').ladda-button#tweet-search-progress
+                                span.ladda-label Submit
+                br
+                ul(tabs, data-tabs='tabs').nav.nav-tabs#tweet-tabs
+                    li.active
+                        a(href='#stream-1', data-toggle='tab') All({{ tweetsCount }})
+                    li
+                        a(href='#stream-2', data-toggle='tab') New({{ newUsersTweetCount }})
+                    li
+                        a(href='#stream-3', data-toggle='tab') Top({{ groupTweetsCount }})
+                    li
+                        a(href='#stream-4', data-toggle='tab') Hobo({{ hoboUsersCount }})
+                    li
+                        a(href='#stream-5', data-toggle='tab') Spam({{ spamUsersCount }})
+                div.tab-content
+                    div(ng-controller='TweetCtrl').tab-pane.active#stream-1
+                        // include view for show all tweets from stream.
+                        include partials/all
+                    div(ng-controller='NewUsersTweetCtrl').tab-pane#stream-2
+                        include partials/new
+                    div(ng-controller='GroupTweetCtrl').tab-pane#stream-3
+                        include partials/top
+                    div(ng-controller='HoboUsersTweetCtrl').tab-pane#stream-4
+                        include partials/hobo
+                    div(ng-controller='SpamUsersTweetCtrl').tab-pane#stream-5
+                        include partials/spam
+            div.col-md-7
+                div(ng-controller='GoogleMapTweetCtrl')
+                    div(google-map, center='center', mark-click='false', fit='true', draggable='true', zoom='zoom',
+                    markers='markers')#tweet-map
+                div(ng-controller='ChartTweetCtrl')
+                    div(flot, ng-model='data')#tweet-chart
+                    div.counter-tweets {{ perDayTweetsCount }} tweets/day
+                    div.network-exposure {{ networkExposure }} users can see the contest
+                div(ng-controller='FollowersCtrl').panel.panel-default
+                    .panel-heading Followers
+                    ul.list-group
+                        li(ng-repeat='follower in followers').list-group-item.clearfix
+                            a(href="#").pull-left
+                                img(ng-src="{{ follower.profile_image_url }}")
+                            .pull-left.list-group-item-wrapper
+                                h4.list-group-item-heading {{ follower.screen_name }}
+
+
+    // include google maps api.
+    script(src='http://maps.googleapis.com/maps/api/js?sensor=false&language=en')
+    // include socket.io client integration.
+    script(src='/js/app/socket.io-client/dist/socket.io.js')
+
+    script(src='/bower_components/linq/linq.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+    // include submodules of angular.
+    script(src='/bower_components/angular-animate/angular-animate.js')
+    script(src='/bower_components/angular-resource/angular-resource.js')
+    // include ladda button components.
+    script(src='/bower_components/spin.js/spin.js')
+    script(src='/bower_components/Ladda/js/ladda.js')
+    // include moment.js
+    script(src='/bower_components/moment/moment.js')
+    script(src='/bower_components/moment/moment.twitter.js')
+
+    script(src='/bower_components/flot/jquery.flot.js')
+    script(src='/bower_components/flot/jquery.flot.time.js')
+
+    script(src='/bower_components/animo.js/animo.js')
+
+    // include application files.
+    script(src='/js/app/utils.js')
+    script(src='/js/app/app.js')
+    script(src='/bower_components/angular-google-maps/src/angular-google-maps.js')
+    script(src='/bower_components/angular-socket-io/socket.js')
+
+    script(src='/js/app/directives/TweetSpinner.js')
+    script(src='/js/app/directives/angular.flot.js')
+    script(src='/js/app/services/TransferService.js')
+    script(src='/js/app/services/MongoResource.js')
+    script(src='/js/app/filters/TweetFilterTime.js')
+    script(src='/js/app/controllers/TweetCtrl.js')
+    script(src='/js/app/controllers/GroupTweetCtrl.js')
+    script(src='/js/app/controllers/NewUsersTweetCtrl.js')
+    script(src='/js/app/controllers/HoboUsersTweetCtrl.js')
+    script(src='/js/app/controllers/SpamUsersTweetCtrl.js')
+    script(src='/js/app/controllers/GoogleMapTweetCtrl.js')
+    script(src='/js/app/controllers/ChartTweetCtrl.js')
+    script(src='/js/app/controllers/FollowersCtrl.js')
+    script(src='/js/app/animations/TweetAnimation.js')

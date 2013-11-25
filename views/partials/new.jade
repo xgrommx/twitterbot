@@ -1,0 +1,11 @@
+ul.list-group
+    li(ng-repeat="newUsersTweet in newUsersTweets | limitTo:10").list-group-item.clearfix
+        a(href="#").pull-left
+            img(ng-src="{{ newUsersTweet.image }}")
+        .pull-left.list-group-item-wrapper
+            h4.list-group-item-heading {{ newUsersTweet.screen_name }}
+            p.list-group-item-text
+                div {{ newUsersTweet.text }}4
+                div Posted {{ newUsersTweet.created_at | timeAgoFormat }}
+                div Followers {{ newUsersTweet.followers_count }}
+                div Created account {{ newUsersTweet.user_created_at | timeFormat: 'MMMM Do YYYY' }}

@@ -1,0 +1,11 @@
+ul.list-group
+    li(ng-repeat="groupTweet in groupTweets | limitTo:10").list-group-item.clearfix
+        a(href="#").pull-left
+            img(ng-src="{{ groupTweet.item.image }}")
+        span.badge {{ groupTweet.count }}
+        .pull-left.list-group-item-wrapper
+            h4.list-group-item-heading {{ groupTweet.item.screen_name }}
+            p.list-group-item-text
+                div {{ groupTweet.item.text }}
+                div Posted {{ groupTweet.item.created_at | timeAgoFormat }}
+                div Followers {{ groupTweet.item.followers_count }}
