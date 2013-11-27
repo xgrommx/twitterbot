@@ -2,6 +2,7 @@ ul.list-group
     li(ng-repeat="tweet in tweets | orderBy:'created_at':true | limitTo:10").tweet-animation.list-group-item.clearfix
         a.pull-left(href='#')
             img(ng-src='{{ tweet.image }}', alt='')
+            span(ng-show='{{tweet.follower}}').label.label-info.label-block Follow
         span.badge 1
         div.pull-left.list-group-item-wrapper
             h4.list-group-item-heading {{ tweet.screen_name }}

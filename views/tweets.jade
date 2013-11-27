@@ -1,7 +1,8 @@
 extends layout
 
 block content
-    div(ng-app='app').app-wrapper
+    //div(ng-app='app').app-wrapper
+    div.app-wrapper#app
         div.page-header
             h1 Application for contest in twitter <small>Based on twitter bootstrap and AngularJS</small>
         div.row
@@ -30,7 +31,8 @@ block content
                     li
                         a(href='#stream-5', data-toggle='tab') Spam({{ spamUsersCount }})
                 div.tab-content
-                    div(ng-controller='TweetCtrl').tab-pane.active#stream-1
+                    //div(ng-controller='TweetCtrl').tab-pane.active#stream-1
+                    div.tab-pane.active.tweet-ctrl#stream-1
                         // include view for show all tweets from stream.
                         include partials/all
                     div(ng-controller='NewUsersTweetCtrl').tab-pane#stream-2

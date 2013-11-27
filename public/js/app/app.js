@@ -23,3 +23,9 @@ angular.module('app', [
         var appSocket = io.connect(socketUrl, {});
         socketProvider.ioSocket(appSocket);
     });
+
+(function($) {
+    $(function() {
+        angular.bootstrap($('#app'), ['app']);
+    });
+})(jQuery);

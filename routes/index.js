@@ -1,4 +1,5 @@
 var auth = require('middlewares/authorization');
+var LoginController = require('routes/login');
 
 module.exports = function(app, io) {
     app.get('/', auth.requiresLogin, function(req, res) {
@@ -9,7 +10,7 @@ module.exports = function(app, io) {
         require('routes/tweets').tweets(req, res, io);
     });
 
-    app.get('/login', require('routes/login').login);
+    app.get('/login', LoginController.login);
 
     app.get('/logout', function(req, res) {
         req.logout();

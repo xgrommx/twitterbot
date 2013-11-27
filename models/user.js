@@ -20,6 +20,9 @@ var UserSchema = new Schema({
     followers_count: {
         type: Number
     },
+    followers_ids: {
+        type: [Number]
+    },
     created_at: {
         type: Number,
         "default": moment().unix()

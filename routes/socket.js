@@ -20,20 +20,23 @@ function tweetReader(socket, req, res) {
         followStream.merge(unFollowStream).filter(function (data) {
             return data != null && data.target != null && data.target.id === req.user.id
         }).subscribe(function (data) {
-                socket.emit('follow', { user: data.source });
+                if(!req.user.followers_ids.indexOf(data.source.id) >= 0) {
+                    User.update({id: req.user.id}, {$push:{followers_ids: data.source.id}}, function(err, affected) {
+                        socket.emit('follow', { user: data.source });
+                        req.user.followers_ids.push(data.source.id);
+                    });
+                }
             });
-//        Twit.get('followers/list', {id: req.user.id}, function(err, reply, response) {
-//            if (err) {
-//                log.error(err);
-//            }
-//            log.info(reply);
-//        });
 
         rxStream.map(function (tweet) {
             if (typeof tweet.created_at !== 'number') {
                 tweet.created_at = moment(tweet.created_at).unix();
                 tweet.user.created_at = moment(tweet.user.created_at).unix();
             }
+            if(req.user.followers_ids.indexOf(tweet.user.id) >= 0) {
+                tweet.follower = true;
+            }
+
             return tweet;
         }).subscribe(function (tweet) {
                 var twitterUser = null;

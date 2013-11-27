@@ -16,6 +16,7 @@ angular.module('app.TweetCtrl', []).controller('TweetCtrl',
 
             $scope.$onRootScope('broadcast:tweets', function (event, data) {
                 var tweets = TransferService.tweets;
+                console.log(tweets, 'tweets');
                 tempData = tweets.distinct("$.id").toArray();
                 $scope.tweets = tempData;
                 $rootScope.tweetsCount = tempData.length;
@@ -33,4 +34,9 @@ angular.module('app.TweetCtrl', []).controller('TweetCtrl',
             angular.element($document).ready(function () {
                 $rootScope.doSearch($scope.hashtag);
             });
-        }]);
+        }]).directive('tweetCtrl', [function() {
+        return {
+            restrict: 'C',
+            controller: 'TweetCtrl as t'
+        };
+    }]);

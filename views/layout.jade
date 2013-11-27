@@ -2,6 +2,7 @@
 html(lang='en')
     head
         meta(charset='utf-8')
+        //link(rel='stylesheet' href='/css/bootstrap.css')
         link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
         link(rel='stylesheet' href='/bower_components/Ladda/dist/ladda.min.css')
         link(rel='stylesheet' href='/bower_components/animo.js/animate+animo.css')
@@ -19,7 +20,7 @@ html(lang='en')
                 a(href='#').navbar-brand <span class="glyphicon glyphicon-heart"></span> Twitter Bot
                 p.navbar-text.navbar-right Signed in as
                     if user
-                        a(href="#").navbar-link.user-name #{user.name}
+                        a(href="/logout").navbar-link.user-name #{user.name}
                     else
                         span Anonimous
             block content

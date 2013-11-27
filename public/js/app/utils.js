@@ -24,7 +24,8 @@ function getTweetFromSocket(socket, cb) {
             user_id: data.tweet.user.id,
             hashtag: data.tweet.hashtag,
             longitude: data.tweet.longitude,
-            latitude: data.tweet.latitude
+            latitude: data.tweet.latitude,
+            follower: data.tweet.follower
         };
 
         cb(tweet);

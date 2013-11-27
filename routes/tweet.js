@@ -18,7 +18,7 @@ exports.tweet = function(req, res, next) {
                     user_id: tweet.user.id,
                     longitude: tweet.longitude,
                     latitude: tweet.latitude,
-                    "static": true
+                    follower: req.user.followers_ids.indexOf(tweet.user.id) >= 0
                 };
             });
 

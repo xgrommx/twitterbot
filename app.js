@@ -14,7 +14,7 @@ var MongoStore = require('connect-mongo')(Common.express);
 app.locals.pretty = true;
 
 app.use(Common.express.compress({
-    filter: function(req, res) {
+    filter: function (req, res) {
         return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
     },
     level: 9
@@ -50,23 +50,29 @@ passport.use(new TwitterStrategy({
     consumerKey: Common.config.get('twitter:consumer_key'),
     consumerSecret: Common.config.get('twitter:consumer_secret'),
     callbackURL: '/auth/twitter/callback'
-}, function(token, tokenSecret, profile, done) {
-    Common.User.findOne({id: profile.id}, function(err, user) {
-        if(err) {
+}, function (token, tokenSecret, profile, done) {
+    Common.User.findOne({id: profile.id}, function (err, user) {
+        if (err) {
             return done(err);
         }
-        if(!user) {
-            user = new Common.User({
-                id: profile._json.id,
-                name: profile._json.name,
-                screen_name: profile._json.screen_name,
-                profile_image_url: profile._json.profile_image_url,
-                created_at: Common.moment(profile._json.created_at).unix(),
-                followers_count: profile._json.followers_count
-            });
-            user.save(function(err) {
-                if(err) Common.log.info(err);
-                return done(err, user);
+        if (!user) {
+            Common.Twit.get('followers/ids', {id: profile._json.id}, function (err, reply, response) {
+                if (err) {
+                    log.error(err);
+                }
+                user = new Common.User({
+                    id: profile._json.id,
+                    name: profile._json.name,
+                    screen_name: profile._json.screen_name,
+                    profile_image_url: profile._json.profile_image_url,
+                    created_at: Common.moment(profile._json.created_at).unix(),
+                    followers_count: profile._json.followers_count,
+                    followers_ids: reply.ids
+                });
+                user.save(function (err) {
+                    if (err) Common.log.info(err);
+                    return done(err, user);
+                });
             });
         } else {
             return done(err, user);
@@ -74,14 +80,14 @@ passport.use(new TwitterStrategy({
     });
 }));
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
     Common.User.findOne({
         id: user.id
-    }, function(err, user) {
+    }, function (err, user) {
         done(err, user);
     });
 });
