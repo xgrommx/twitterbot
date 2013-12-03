@@ -3551,7 +3551,7 @@
         $scope.tweetsByLang = [];
         $scope.$onRootScope('broadcast:tweets', function () {
             tweets = TransferService.tweets;
-            $scope.tweetsByLang = tweets.groupBy(function (n) {
+            $scope.tweetsByLang = tweets.distinct(function(n) { return n.id; }).groupBy(function (n) {
                 return n.lang;
             },function (n) {
                 return n;
@@ -3564,7 +3564,9 @@
 
             getTweetFromSocket(socket, $rootScope.hashtag, function (tweet) {
                 tweets.push(tweet);
-                $scope.tweetsByLang = tweets.groupBy(function (n) {
+                $scope.tweetsByLang = tweets.distinct(function(n) {
+                    return n.id;
+                }).groupBy(function (n) {
                     return n.lang;
                 },function (n) {
                     return n;
