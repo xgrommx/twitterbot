@@ -8,11 +8,11 @@ angular.module('app.NewUsersTweetCtrl', [])
                 var tweets = TransferService.tweets;
                 $scope.newUsersTweets = filterNewUsers(tweets);
                 $rootScope.newUsersTweetCount = $scope.newUsersTweets.length;
-            });
 
-            getTweetFromSocket(socket, function(tweet) {
-                $scope.newUsersTweets.push(tweet);
-                $scope.newUsersTweets = filterNewUsers($scope.newUsersTweets);
-                $rootScope.newUsersTweetCount = $scope.newUsersTweets.length;
+                getTweetFromSocket(socket, $rootScope.hashtag, function(tweet) {
+                    $scope.newUsersTweets.push(tweet);
+                    $scope.newUsersTweets = filterNewUsers($scope.newUsersTweets);
+                    $rootScope.newUsersTweetCount = $scope.newUsersTweets.length;
+                });
             });
         }]);

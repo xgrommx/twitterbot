@@ -12,6 +12,7 @@ angular.module('app', [
         'app.TweetFilterTime',
         'app.TweetAnimation',
         'app.FollowersCtrl',
+        'app.LangTweetCtrl',
         'ngAnimate',
         'ngResource',
         'google-maps',
@@ -19,9 +20,9 @@ angular.module('app', [
         'btford.socket-io'
     ]).run(function () {
         Enumerable.Utils.extendTo(Array);
-    }).constant({socketUrl: 'http://localhost'}).config(function (socketProvider, socketUrl) {
-        var appSocket = io.connect(socketUrl, {});
-        socketProvider.ioSocket(appSocket);
+    }).constant({socketUrl: 'http://localhost', guid: guid()}).config(function (socketProvider, socketUrl, $provide, $locationProvider) {
+//        var appSocket = io.connect(socketUrl, {});
+//        socketProvider.ioSocket(appSocket);
     });
 
 (function($) {

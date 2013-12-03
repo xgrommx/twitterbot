@@ -51,14 +51,17 @@ block content
                     div(flot, ng-model='data')#tweet-chart
                     div.counter-tweets {{ perDayTweetsCount }} tweets/day
                     div.network-exposure {{ networkExposure }} users can see the contest
-                div(ng-controller='FollowersCtrl').panel.panel-default
-                    .panel-heading Followers
-                    ul.list-group
-                        li(ng-repeat='follower in followers').list-group-item.clearfix
-                            a(href="#").pull-left
-                                img(ng-src="{{ follower.profile_image_url }}")
-                            .pull-left.list-group-item-wrapper
-                                h4.list-group-item-heading {{ follower.screen_name }}
+                //div(ng-controller='FollowersCtrl').panel.panel-default
+                //    .panel-heading Followers
+                //    ul.list-group
+                //        li(ng-repeat='follower in followers').list-group-item.clearfix
+                //            a(href="#").pull-left
+                //                img(ng-src="{{ follower.profile_image_url }}")
+                //            .pull-left.list-group-item-wrapper
+                //                h4.list-group-item-heading {{ follower.screen_name }}
+                div(ng-controller='LangTweetCtrl')
+                    ul
+                        li(ng-repeat='tweetByLang in tweetsByLang | orderBy:"count":true') Lang {{ tweetByLang.lang }} => {{ tweetByLang.count }}
 
 
     // include google maps api.
@@ -102,4 +105,5 @@ block content
     script(src='/js/app/controllers/GoogleMapTweetCtrl.js')
     script(src='/js/app/controllers/ChartTweetCtrl.js')
     script(src='/js/app/controllers/FollowersCtrl.js')
+    script(src='/js/app/controllers/LangTweetCtrl.js')
     script(src='/js/app/animations/TweetAnimation.js')

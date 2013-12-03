@@ -1,6 +1,6 @@
 angular.module('app.TweetCtrl', []).controller('TweetCtrl',
-    ['$scope', '$rootScope', 'TransferService', '$document', 'socket', '$filter', '$window',
-        function ($scope, $rootScope, TransferService, $document, socket, $filter, $window) {
+    ['$scope', '$rootScope', 'TransferService', '$document', 'socket', '$filter', '$window', 'guid',
+        function ($scope, $rootScope, TransferService, $document, socket, $filter, $window, guid) {
             var tempData = [];
             // Declare variable for $scope
             $scope.tweets = [];
@@ -11,28 +11,28 @@ angular.module('app.TweetCtrl', []).controller('TweetCtrl',
             $rootScope.doSearch = function (hashtag) {
                 $scope.tweets = [];
                 TransferService.getTweetsFromMongo(hashtag);
-                socket.emit('get:tweet', {hashtag: hashtag});
+                // Dynamic emmit for certain user.
+                socket.emit('get:tweet', hashtag);
             };
 
             $scope.$onRootScope('broadcast:tweets', function (event, data) {
                 var tweets = TransferService.tweets;
-                console.log(tweets, 'tweets');
                 tempData = tweets.distinct("$.id").toArray();
                 $scope.tweets = tempData;
                 $rootScope.tweetsCount = tempData.length;
-            });
 
-            // Subscribe on socket response from twitter stream.
-            getTweetFromSocket(socket, function(tweet) {
-                tempData.push(tweet);
-                tempData = tempData.distinct("$.id").toArray();
-                $scope.tweets = tempData;
-                $rootScope.tweetsCount = tempData.length;
+                // Subscribe on socket response from twitter stream.
+                getTweetFromSocket(socket, $rootScope.hashtag, function(tweet) {
+                    tempData.push(tweet);
+                    tempData = tempData.distinct("$.id").toArray();
+                    $scope.tweets = tempData;
+                    $rootScope.tweetsCount = tempData.length;
+                });
             });
 
             // Trigger function for search tweets if DOM is ready.
             angular.element($document).ready(function () {
-                $rootScope.doSearch($scope.hashtag);
+//                $rootScope.doSearch($scope.hashtag);
             });
         }]).directive('tweetCtrl', [function() {
         return {

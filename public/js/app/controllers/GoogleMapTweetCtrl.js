@@ -21,19 +21,19 @@ angular.module('app.GoogleMapTweetCtrl', []).controller('GoogleMapTweetCtrl', [
                     infoWindow: enumObj.count() + " Users from this"
                 };
             }).toArray();
-        });
 
-        getTweetFromSocket(socket, function(tweet) {
-            if(typeof tweet.longitude !== 'undefined' || typeof tweet.latitude !== 'undefined') {
-                tempMarkers.push(tweet);
-                $scope.markers = tempMarkers.groupBy("$.longitude", "$", function(key, enumObj) {
-                    return {
-                        longitude: enumObj.first().longitude,
-                        latitude: enumObj.first().latitude,
-                        infoWindow: enumObj.count() + " Users from this"
-                    };
-                }).toArray();
-            }
+            getTweetFromSocket(socket, $rootScope.hashtag, function(tweet) {
+                if(typeof tweet.longitude !== 'undefined' || typeof tweet.latitude !== 'undefined') {
+                    tempMarkers.push(tweet);
+                    $scope.markers = tempMarkers.groupBy("$.longitude", "$", function(key, enumObj) {
+                        return {
+                            longitude: enumObj.first().longitude,
+                            latitude: enumObj.first().latitude,
+                            infoWindow: enumObj.count() + " Users from this"
+                        };
+                    }).toArray();
+                }
+            });
         });
     }
 ]);

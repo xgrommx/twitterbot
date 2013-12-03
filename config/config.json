@@ -5,8 +5,14 @@
         "options": {
             "server": {
                 "socketOptions": {
-                    "keepAlive": 1
-                }
+                    "keepAlive":1
+                },
+                "poolSize": 10,
+                "auto_reconnect":true
+            },
+            "db": {
+                "numberOfRetries": 10,
+                "retryMiliSeconds": 1000
             }
         }
     },

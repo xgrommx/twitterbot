@@ -33,10 +33,10 @@ angular.module('app.SpamUsersTweetCtrl', [])
             $scope.$onRootScope('broadcast:tweets', function (event, data) {
                 spamUsersTemp = TransferService.tweets;
                 update(spamUsersTemp);
-            });
 
-            getTweetFromSocket(socket, function(tweet) {
-                spamUsersTemp.push(tweet);
-                update(spamUsersTemp);
+                getTweetFromSocket(socket, $rootScope.hashtag, function(tweet) {
+                    spamUsersTemp.push(tweet);
+                    update(spamUsersTemp);
+                });
             });
         }]);

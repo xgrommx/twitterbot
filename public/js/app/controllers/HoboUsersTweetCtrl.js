@@ -19,11 +19,11 @@ angular.module('app.HoboUsersTweetCtrl', []).controller('HoboUsersTweetCtrl', [
             var tweets = TransferService.tweets;
             tempTweetsHoboUsers = tweets;
             updateHoboUsers(tempTweetsHoboUsers);
-        });
 
-        getTweetFromSocket(socket, function(tweet) {
-            tempTweetsHoboUsers.push(tweet);
-            updateHoboUsers(tempTweetsHoboUsers);
+            getTweetFromSocket(socket, $rootScope.hashtag, function(tweet) {
+                tempTweetsHoboUsers.push(tweet);
+                updateHoboUsers(tempTweetsHoboUsers);
+            });
         });
     }
 ]);

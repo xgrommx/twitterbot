@@ -10,8 +10,8 @@ angular.module('app.TransferService', []).config(['$provide', function ($provide
 
             return $delegate;
         }]);
-    }]).factory('TransferService', ['$rootScope', 'MongoResource', 'socket',
-        function ($rootScope, MongoResource, socket) {
+    }]).factory('TransferService', ['$rootScope', 'MongoResource',
+        function ($rootScope, MongoResource) {
             var service = {};
             service.tweets = [];
             service.getItemsBroadcast = function() {

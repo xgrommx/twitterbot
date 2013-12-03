@@ -6,43 +6,28 @@ var Spam = require('models/spam').Spam;
 var Rx = require('lib/rx.twitter.stream');
 var log = require('lib/log')(module);
 
-function tweetReader(socket, req, res) {
-    socket.on('get:tweet', function (data) {
-        var hashtag = data.hashtag;
-        var sanFrancisco = [ '-122.75', '36.8', '-121.75', '37.8' ];
-
+function tweetReader(user, socket, hashArray) {
+    socket.on('get:tweet-' + user.id, function(hashtag) {
         var rxStream = Rx.Node.fromTwitterStream(
             Twit.stream('statuses/filter', {track: '#' + hashtag}), 'tweet');
-
-        var userStream = Twit.stream('user', {id: req.user.id});
-        var followStream = Rx.Node.fromTwitterStream(userStream, 'follow');
-        var unFollowStream = Rx.Node.fromTwitterStream(userStream, 'unfollow');
-        followStream.merge(unFollowStream).filter(function (data) {
-            return data != null && data.target != null && data.target.id === req.user.id
-        }).subscribe(function (data) {
-                if(!req.user.followers_ids.indexOf(data.source.id) >= 0) {
-                    User.update({id: req.user.id}, {$push:{followers_ids: data.source.id}}, function(err, affected) {
-                        socket.emit('follow', { user: data.source });
-                        req.user.followers_ids.push(data.source.id);
-                    });
-                }
-            });
 
         rxStream.map(function (tweet) {
             if (typeof tweet.created_at !== 'number') {
                 tweet.created_at = moment(tweet.created_at).unix();
                 tweet.user.created_at = moment(tweet.user.created_at).unix();
             }
-            if(req.user.followers_ids.indexOf(tweet.user.id) >= 0) {
+            if(user.followers_ids.indexOf(tweet.user.id) >= 0) {
                 tweet.follower = true;
             }
+
+            tweet.hashtag = hashtag;
 
             return tweet;
         }).subscribe(function (tweet) {
                 var twitterUser = null;
                 var twitterData = null;
 
-                socket.emit('send:tweet', {tweet: tweet});
+                socket.emit('send:tweet-' + user.id, {tweet: tweet});
 
                 User.findOne({id: tweet.user.id}, function (err, user) {
                     if (user) {
@@ -115,7 +100,6 @@ function tweetReader(socket, req, res) {
                         });
                     } else {
                         Spam.update({id: spam.id}, {$inc: {count_of_tweets: 1}}, function (err, affected) {
-                            log.info(affected, 'affected');
                         });
                     }
                 });

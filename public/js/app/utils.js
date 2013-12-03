@@ -8,11 +8,8 @@ function filterNewUsers(data) {
         }).toArray();
 }
 
-function getTweetFromSocket(socket, cb) {
+function getTweetFromSocket(socket, hashtag, cb) {
     socket.on('send:tweet', function(data) {
-        if(data.tweet.coordinates != null) {
-            console.log(data.tweet, 'Tweet from socket.');
-        }
         var tweet = {
             id: data.tweet.id,
             screen_name: data.tweet.user.screen_name,
@@ -25,9 +22,23 @@ function getTweetFromSocket(socket, cb) {
             hashtag: data.tweet.hashtag,
             longitude: data.tweet.longitude,
             latitude: data.tweet.latitude,
-            follower: data.tweet.follower
+            follower: data.tweet.follower,
+            lang: data.tweet.user.lang
         };
 
-        cb(tweet);
+        if(tweet.hashtag === hashtag) {
+            cb(tweet);
+        }
     });
+}
+
+function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+}
+
+function guid() {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
 }

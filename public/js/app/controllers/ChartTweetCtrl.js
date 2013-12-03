@@ -86,12 +86,12 @@ angular.module('app.ChartTweetCtrl', []).controller('ChartTweetCtrl', [
             $scope.rightNowPeriod = moment().unix();
             tempTweetsChart = tweets;
             updateData();
-        });
 
-        getTweetFromSocket(socket, function(tweet) {
-            tempTweetsChart.push(tweet);
-            $scope.rightNowPeriod = moment().unix();
-            updateData();
+            getTweetFromSocket(socket, $rootScope.hashtag, function(tweet) {
+                tempTweetsChart.push(tweet);
+                $scope.rightNowPeriod = moment().unix();
+                updateData();
+            });
         });
     }
 ]);

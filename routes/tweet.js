@@ -18,7 +18,8 @@ exports.tweet = function(req, res, next) {
                     user_id: tweet.user.id,
                     longitude: tweet.longitude,
                     latitude: tweet.latitude,
-                    follower: req.user.followers_ids.indexOf(tweet.user.id) >= 0
+                    follower: req.user.followers_ids.indexOf(tweet.user.id) >= 0,
+                    lang: tweet.user.lang
                 };
             });
 

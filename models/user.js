@@ -26,6 +26,9 @@ var UserSchema = new Schema({
     created_at: {
         type: Number,
         "default": moment().unix()
+    },
+    lang: {
+        type: String
     }
 });
 

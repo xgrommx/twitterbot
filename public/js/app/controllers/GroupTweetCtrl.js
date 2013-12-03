@@ -34,10 +34,10 @@ angular.module('app.GroupTweetCtrl', []).controller('GroupTweetCtrl', [
             var tweets = TransferService.tweets;
             tempGroupTweets = tweets;
             updateGroupTweets(tempGroupTweets);
-        });
 
-        getTweetFromSocket(socket, function(tweet) {
-            tempGroupTweets.push(tweet);
-            updateGroupTweets(tempGroupTweets);
+            getTweetFromSocket(socket, $rootScope.hashtag, function(tweet) {
+                tempGroupTweets.push(tweet);
+                updateGroupTweets(tempGroupTweets);
+            });
         });
     }]);
