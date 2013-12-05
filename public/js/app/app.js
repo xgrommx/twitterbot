@@ -1,5 +1,6 @@
 angular.module('app', [
         'app.MongoResource',
+        'app.UserResource',
         'app.TransferService',
         'app.TweetCtrl',
         'app.GroupTweetCtrl',
@@ -13,6 +14,7 @@ angular.module('app', [
         'app.TweetAnimation',
         'app.FollowersCtrl',
         'app.LangTweetCtrl',
+        'app.RandomizerCtrl',
         'ngAnimate',
         'ngResource',
         'google-maps',

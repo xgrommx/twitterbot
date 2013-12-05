@@ -287,6 +287,8 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.get('/tweets/:hashtag', Common.api);
 
+app.get('/users/:hashtag', Common.users);
+
 require('routes')(app, io);
 
 server.requests.subscribe(function(data) {

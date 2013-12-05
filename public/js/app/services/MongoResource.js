@@ -6,3 +6,12 @@ angular.module('app.MongoResource', []).factory('MongoResource', ['$resource', f
         }
     });
 }]);
+
+angular.module('app.UserResource', []).factory('UserResource', ['$resource', function($resource) {
+    return $resource('/users/:hashtag', {}, {
+        getUsers: {
+            method: 'GET',
+            params: {hashtag: '@hashtag'}
+        }
+    })
+}]);

@@ -62,6 +62,15 @@ block content
                 div(ng-controller='LangTweetCtrl')
                     ul
                         li(ng-repeat='tweetByLang in tweetsByLang | orderBy:"count":true') Lang {{ tweetByLang.lang }} => {{ tweetByLang.count }}
+                div(ng-controller='RandomizerCtrl')
+                    button(ng-click='getWinners(hashtag);').btn.btn-info.btn-block.btn-lg Randomize me!
+                    br
+                    span We have a {{users.length}} users which participate in the contest
+                    input(type='text', ng-model='user.screen_name',
+                        placeholder='Please type your tweeter screen name for search it').form-control.form-search
+                    ul
+                        li(ng-repeat='user in users | filter:user') {{ user.screen_name }} got <strong>{{$index + 1}}</strong> place
+
 
 
     // include google maps api.
@@ -106,4 +115,5 @@ block content
     script(src='/js/app/controllers/ChartTweetCtrl.js')
     script(src='/js/app/controllers/FollowersCtrl.js')
     script(src='/js/app/controllers/LangTweetCtrl.js')
+    script(src='/js/app/controllers/RandomizerCtrl.js')
     script(src='/js/app/animations/TweetAnimation.js')
